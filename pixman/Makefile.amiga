@@ -1,0 +1,17 @@
+default: all
+
+top_srcdir = ..
+include $(top_srcdir)/pixman/Makefile.sources
+
+OBJECTS = $(patsubst %.c, %.o, $(libpixman_sources))
+
+CFLAGS = -O1 -I$(top_srcdir)/amiga -DPIXMAN_NO_TLS -DPACKAGE=pixman.library -DPACKAGE_VERSION="" -DPACKAGE_BUGREPORT=""
+CC = ppc-amigaos-gcc
+PERL = perl
+
+# targets
+all:  pixman.library
+
+# pixman linking
+pixman.library: pixman-combine32.h pixman-combine64.h $(OBJECTS)
+	ppc-amigaos-ar rcs libpixman.a $(OBJECTS)

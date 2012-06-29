@@ -191,11 +191,8 @@ pixman_bool_t _impl_pixman_blt(struct PixmanIFace *Self,
        int width,
        int height)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_blt not implemented\n");  
-    return (pixman_bool_t)0;
-
+	return pixman_blt(src_bits, dst_bits, src_stride, dst_stride, src_bpp,
+	       dst_bpp, src_x, src_y, dest_x, dest_y, width, height);
 }
 
 /****** pixman/main/pixman_composite_glyphs ******************************************
@@ -262,10 +259,10 @@ void _impl_pixman_composite_glyphs(struct PixmanIFace *Self,
        int n_glyphs,
        pixman_glyph_t * glyphs)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_composite_glyphs not implemented\n");  
-
+	pixman_composite_glyphs(op, src, dest, mask_format,
+	       src_x, src_y, mask_x, mask_y,
+	       dest_x, dest_y, width, height,
+	       cache, n_glyphs, glyphs);
 }
 
 /****** pixman/main/pixman_composite_glyphs_no_mask ******************************************
@@ -321,10 +318,9 @@ void _impl_pixman_composite_glyphs_no_mask(struct PixmanIFace *Self,
        int n_glyphs,
        pixman_glyph_t * glyphs)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_composite_glyphs_no_mask not implemented\n");  
-
+	pixman_composite_glyphs_no_mask(op, src, dest,
+	       src_x, src_y, dest_x, dest_y,
+	       cache, n_glyphs, glyphs);
 }
 
 /****** pixman/main/pixman_composite_trapezoids ******************************************
@@ -379,10 +375,8 @@ void _impl_pixman_composite_trapezoids(struct PixmanIFace *Self,
        int n_traps,
        pixman_trapezoid_t * traps)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_composite_trapezoids not implemented\n");  
-
+	pixman_composite_trapezoids(op, src, dst, mask_format,
+	       x_src, y_src, x_dst, y_dst, n_traps, traps);
 }
 
 /****** pixman/main/pixman_composite_triangles ******************************************
@@ -437,10 +431,8 @@ void _impl_pixman_composite_triangles(struct PixmanIFace *Self,
        int n_tris,
        pixman_triangle_t * tris)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_composite_triangles not implemented\n");  
-
+	pixman_composite_triangles(op, src, dst, mask_format,
+	       x_src, y_src, x_dst, y_dst, n_tris, tris);
 }
 
 /****** pixman/main/pixman_compute_composite_region ******************************************
@@ -500,11 +492,8 @@ pixman_bool_t _impl_pixman_compute_composite_region(struct PixmanIFace *Self,
        uint16_t width,
        uint16_t height)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_compute_composite_region not implemented\n");  
-    return (pixman_bool_t)0;
-
+	return pixman_compute_composite_region(region, src_image, mask_image, dest_image,
+	       src_x, src_y, mask_x, mask_y, dest_x, dest_y, width, height);
 }
 
 /****** pixman/main/pixman_disable_out_of_bounds_workaround ******************************************
@@ -536,10 +525,6 @@ pixman_bool_t _impl_pixman_compute_composite_region(struct PixmanIFace *Self,
 
 void _impl_pixman_disable_out_of_bounds_workaround(struct PixmanIFace *Self)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_disable_out_of_bounds_workaround not implemented\n");  
-
 }
 
 /****** pixman/main/pixman_edge_init ******************************************
@@ -6002,11 +5987,7 @@ pixman_bool_t _impl_pixman_transform_translate(struct PixmanIFace *Self,
 
 int _impl_pixman_version(struct PixmanIFace *Self)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_version not implemented\n");  
-    return (int)0;
-
+	return pixman_version();
 }
 
 /****** pixman/main/pixman_version_string ******************************************
@@ -6036,12 +6017,8 @@ int _impl_pixman_version(struct PixmanIFace *Self)
 *
 */
 
-char * _impl_pixman_version_string(struct PixmanIFace *Self)
+const char * _impl_pixman_version_string(struct PixmanIFace *Self)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_version_string not implemented\n");  
-    return (char *)0;
-
+	return pixman_version_string();
 }
 

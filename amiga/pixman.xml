@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE library SYSTEM "library.dtd">
-<library name="pixman" basename="PixmanBase" basetype="Library" openname="pixman.library">
+<library name="pixman" basename="PixmanBase" basetype="PixmanLibrary" openname="pixman.library">
 
  <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" prefix="" asmprefix="IPixman">
   <method name="pixman_image_create_bits" result="pixman_image_t *">

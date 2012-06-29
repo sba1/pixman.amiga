@@ -56,7 +56,7 @@ t = parser.parse(str,'x.c')
 
 print '''<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE library SYSTEM "library.dtd">
-<library name="pixman" basename="PixmanBase" basetype="Library" openname="pixman.library">
+<library name="pixman" basename="PixmanBase" basetype="PixmanLibrary" openname="pixman.library">
 '''
 
 print ' <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" prefix="" asmprefix="IPixman">'

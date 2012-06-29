@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE library SYSTEM "library.dtd">
+<library name="pixman" basename="PixmanBase" basetype="Library" openname="pixman.library">
+
+ <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" prefix="" asmprefix="IPixman">
+  <method name="pixman_image_create_bits" result="pixman_image_t *">
+    <arg name="format" type="pixman_format_code_t"/>
+    <arg name="width" type="int"/>
+    <arg name="height" type="int"/>
+    <arg name="bits" type="uint32_t *"/>
+    <arg name="rowstride_bytes" type="int"/>
+  </method>
+  <method name="pixman_image_create_conical_gradient" result="pixman_image_t *">
+    <arg name="center" type="pixman_point_fixed_t *"/>
+    <arg name="angle" type="pixman_fixed_t"/>
+    <arg name="stops" type="pixman_gradient_stop_t *"/>
+    <arg name="n_stops" type="int"/>
+  </method>
+  <method name="pixman_rasterize_edges" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="l" type="pixman_edge_t *"/>
+    <arg name="r" type="pixman_edge_t *"/>
+    <arg name="t" type="pixman_fixed_t"/>
+    <arg name="b" type="pixman_fixed_t"/>
+  </method>
+  <method name="pixman_glyph_cache_create" result="pixman_glyph_cache_t *">
+  </method>
+  <method name="pixman_glyph_cache_destroy" result="void">
+    <arg name="cache" type="pixman_glyph_cache_t *"/>
+  </method>
+  <method name="pixman_glyph_cache_freeze" result="void">
+    <arg name="cache" type="pixman_glyph_cache_t *"/>
+  </method>
+  <method name="pixman_glyph_cache_thaw" result="void">
+    <arg name="cache" type="pixman_glyph_cache_t *"/>
+  </method>
+  <method name="pixman_glyph_cache_lookup" result="void *">
+    <arg name="cache" type="pixman_glyph_cache_t *"/>
+    <arg name="font_key" type="void *"/>
+    <arg name="glyph_key" type="void *"/>
+  </method>
+  <method name="pixman_glyph_cache_insert" result="void *">
+    <arg name="cache" type="pixman_glyph_cache_t *"/>
+    <arg name="font_key" type="void *"/>
+    <arg name="glyph_key" type="void *"/>
+    <arg name="origin_x" type="int"/>
+    <arg name="origin_y" type="int"/>
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_glyph_cache_remove" result="void">
+    <arg name="cache" type="pixman_glyph_cache_t *"/>
+    <arg name="font_key" type="void *"/>
+    <arg name="glyph_key" type="void *"/>
+  </method>
+  <method name="pixman_glyph_get_extents" result="void">
+    <arg name="cache" type="pixman_glyph_cache_t *"/>
+    <arg name="n_glyphs" type="int"/>
+    <arg name="glyphs" type="pixman_glyph_t *"/>
+    <arg name="extents" type="pixman_box32_t *"/>
+  </method>
+  <method name="pixman_glyph_get_mask_format" result="pixman_format_code_t">
+    <arg name="cache" type="pixman_glyph_cache_t *"/>
+    <arg name="n_glyphs" type="int"/>
+    <arg name="glyphs" type="pixman_glyph_t *"/>
+  </method>
+  <method name="pixman_composite_glyphs_no_mask" result="void">
+    <arg name="op" type="pixman_op_t"/>
+    <arg name="src" type="pixman_image_t *"/>
+    <arg name="dest" type="pixman_image_t *"/>
+    <arg name="src_x" type="int32_t"/>
+    <arg name="src_y" type="int32_t"/>
+    <arg name="dest_x" type="int32_t"/>
+    <arg name="dest_y" type="int32_t"/>
+    <arg name="cache" type="pixman_glyph_cache_t *"/>
+    <arg name="n_glyphs" type="int"/>
+    <arg name="glyphs" type="pixman_glyph_t *"/>
+  </method>
+  <method name="pixman_composite_glyphs" result="void">
+    <arg name="op" type="pixman_op_t"/>
+    <arg name="src" type="pixman_image_t *"/>
+    <arg name="dest" type="pixman_image_t *"/>
+    <arg name="mask_format" type="pixman_format_code_t"/>
+    <arg name="src_x" type="int32_t"/>
+    <arg name="src_y" type="int32_t"/>
+    <arg name="mask_x" type="int32_t"/>
+    <arg name="mask_y" type="int32_t"/>
+    <arg name="dest_x" type="int32_t"/>
+    <arg name="dest_y" type="int32_t"/>
+    <arg name="width" type="int32_t"/>
+    <arg name="height" type="int32_t"/>
+    <arg name="cache" type="pixman_glyph_cache_t *"/>
+    <arg name="n_glyphs" type="int"/>
+    <arg name="glyphs" type="pixman_glyph_t *"/>
+  </method>
+  <method name="pixman_image_ref" result="pixman_image_t *">
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_image_unref" result="pixman_bool_t">
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_image_set_destroy_function" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="func" type="pixman_image_destroy_func_t"/>
+    <arg name="data" type="void *"/>
+  </method>
+  <method name="pixman_image_get_destroy_data" result="void *">
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_disable_out_of_bounds_workaround" result="void">
+  </method>
+  <method name="pixman_image_set_clip_region32" result="pixman_bool_t">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="region" type="pixman_region32_t *"/>
+  </method>
+  <method name="pixman_image_set_clip_region" result="pixman_bool_t">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="region" type="pixman_region16_t *"/>
+  </method>
+  <method name="pixman_image_set_has_client_clip" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="client_clip" type="pixman_bool_t"/>
+  </method>
+  <method name="pixman_image_set_transform" result="pixman_bool_t">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="transform" type="pixman_transform_t *"/>
+  </method>
+  <method name="pixman_image_set_repeat" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="repeat" type="pixman_repeat_t"/>
+  </method>
+  <method name="pixman_image_set_filter" result="pixman_bool_t">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="filter" type="pixman_filter_t"/>
+    <arg name="params" type="pixman_fixed_t *"/>
+    <arg name="n_params" type="int"/>
+  </method>
+  <method name="pixman_image_set_source_clipping" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="clip_sources" type="pixman_bool_t"/>
+  </method>
+  <method name="pixman_image_set_indexed" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="indexed" type="pixman_indexed_t *"/>
+  </method>
+  <method name="pixman_image_set_alpha_map" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="alpha_map" type="pixman_image_t *"/>
+    <arg name="x" type="int16_t"/>
+    <arg name="y" type="int16_t"/>
+  </method>
+  <method name="pixman_image_set_component_alpha" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="component_alpha" type="pixman_bool_t"/>
+  </method>
+  <method name="pixman_image_get_component_alpha" result="pixman_bool_t">
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_image_set_accessors" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="read_func" type="pixman_read_memory_func_t"/>
+    <arg name="write_func" type="pixman_write_memory_func_t"/>
+  </method>
+  <method name="pixman_image_get_data" result="uint32_t *">
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_image_get_width" result="int">
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_image_get_height" result="int">
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_image_get_stride" result="int">
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_image_get_depth" result="int">
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_image_get_format" result="pixman_format_code_t">
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_image_create_linear_gradient" result="pixman_image_t *">
+    <arg name="p1" type="pixman_point_fixed_t *"/>
+    <arg name="p2" type="pixman_point_fixed_t *"/>
+    <arg name="stops" type="pixman_gradient_stop_t *"/>
+    <arg name="n_stops" type="int"/>
+  </method>
+  <method name="pixman_transform_init_identity" result="void">
+    <arg name="matrix" type="struct pixman_transform *"/>
+  </method>
+  <method name="pixman_transform_point_3d" result="pixman_bool_t">
+    <arg name="transform" type="struct pixman_transform *"/>
+    <arg name="vector" type="struct pixman_vector *"/>
+  </method>
+  <method name="pixman_transform_point" result="pixman_bool_t">
+    <arg name="transform" type="struct pixman_transform *"/>
+    <arg name="vector" type="struct pixman_vector *"/>
+  </method>
+  <method name="pixman_transform_multiply" result="pixman_bool_t">
+    <arg name="dst" type="struct pixman_transform *"/>
+    <arg name="l" type="struct pixman_transform *"/>
+    <arg name="r" type="struct pixman_transform *"/>
+  </method>
+  <method name="pixman_transform_init_scale" result="void">
+    <arg name="t" type="struct pixman_transform *"/>
+    <arg name="sx" type="pixman_fixed_t"/>
+    <arg name="sy" type="pixman_fixed_t"/>
+  </method>
+  <method name="pixman_transform_scale" result="pixman_bool_t">
+    <arg name="forward" type="struct pixman_transform *"/>
+    <arg name="reverse" type="struct pixman_transform *"/>
+    <arg name="sx" type="pixman_fixed_t"/>
+    <arg name="sy" type="pixman_fixed_t"/>
+  </method>
+  <method name="pixman_transform_init_rotate" result="void">
+    <arg name="t" type="struct pixman_transform *"/>
+    <arg name="c" type="pixman_fixed_t"/>
+    <arg name="s" type="pixman_fixed_t"/>
+  </method>
+  <method name="pixman_transform_rotate" result="pixman_bool_t">
+    <arg name="forward" type="struct pixman_transform *"/>
+    <arg name="reverse" type="struct pixman_transform *"/>
+    <arg name="c" type="pixman_fixed_t"/>
+    <arg name="s" type="pixman_fixed_t"/>
+  </method>
+  <method name="pixman_transform_init_translate" result="void">
+    <arg name="t" type="struct pixman_transform *"/>
+    <arg name="tx" type="pixman_fixed_t"/>
+    <arg name="ty" type="pixman_fixed_t"/>
+  </method>
+  <method name="pixman_transform_translate" result="pixman_bool_t">
+    <arg name="forward" type="struct pixman_transform *"/>
+    <arg name="reverse" type="struct pixman_transform *"/>
+    <arg name="tx" type="pixman_fixed_t"/>
+    <arg name="ty" type="pixman_fixed_t"/>
+  </method>
+  <method name="pixman_transform_bounds" result="pixman_bool_t">
+    <arg name="matrix" type="struct pixman_transform *"/>
+    <arg name="b" type="struct pixman_box16 *"/>
+  </method>
+  <method name="pixman_transform_invert" result="pixman_bool_t">
+    <arg name="dst" type="struct pixman_transform *"/>
+    <arg name="src" type="struct pixman_transform *"/>
+  </method>
+  <method name="pixman_transform_is_identity" result="pixman_bool_t">
+    <arg name="t" type="struct pixman_transform *"/>
+  </method>
+  <method name="pixman_transform_is_scale" result="pixman_bool_t">
+    <arg name="t" type="struct pixman_transform *"/>
+  </method>
+  <method name="pixman_transform_is_int_translate" result="pixman_bool_t">
+    <arg name="t" type="struct pixman_transform *"/>
+  </method>
+  <method name="pixman_transform_is_inverse" result="pixman_bool_t">
+    <arg name="a" type="struct pixman_transform *"/>
+    <arg name="b" type="struct pixman_transform *"/>
+  </method>
+  <method name="pixman_f_transform_from_pixman_transform" result="void">
+    <arg name="ft" type="struct pixman_f_transform *"/>
+    <arg name="t" type="struct pixman_transform *"/>
+  </method>
+  <method name="pixman_transform_from_pixman_f_transform" result="pixman_bool_t">
+    <arg name="t" type="struct pixman_transform *"/>
+    <arg name="ft" type="struct pixman_f_transform *"/>
+  </method>
+  <method name="pixman_f_transform_invert" result="pixman_bool_t">
+    <arg name="dst" type="struct pixman_f_transform *"/>
+    <arg name="src" type="struct pixman_f_transform *"/>
+  </method>
+  <method name="pixman_f_transform_point" result="pixman_bool_t">
+    <arg name="t" type="struct pixman_f_transform *"/>
+    <arg name="v" type="struct pixman_f_vector *"/>
+  </method>
+  <method name="pixman_f_transform_point_3d" result="void">
+    <arg name="t" type="struct pixman_f_transform *"/>
+    <arg name="v" type="struct pixman_f_vector *"/>
+  </method>
+  <method name="pixman_f_transform_multiply" result="void">
+    <arg name="dst" type="struct pixman_f_transform *"/>
+    <arg name="l" type="struct pixman_f_transform *"/>
+    <arg name="r" type="struct pixman_f_transform *"/>
+  </method>
+  <method name="pixman_f_transform_init_scale" result="void">
+    <arg name="t" type="struct pixman_f_transform *"/>
+    <arg name="sx" type="double"/>
+    <arg name="sy" type="double"/>
+  </method>
+  <method name="pixman_f_transform_scale" result="pixman_bool_t">
+    <arg name="forward" type="struct pixman_f_transform *"/>
+    <arg name="reverse" type="struct pixman_f_transform *"/>
+    <arg name="sx" type="double"/>
+    <arg name="sy" type="double"/>
+  </method>
+  <method name="pixman_f_transform_init_rotate" result="void">
+    <arg name="t" type="struct pixman_f_transform *"/>
+    <arg name="c" type="double"/>
+    <arg name="s" type="double"/>
+  </method>
+  <method name="pixman_f_transform_rotate" result="pixman_bool_t">
+    <arg name="forward" type="struct pixman_f_transform *"/>
+    <arg name="reverse" type="struct pixman_f_transform *"/>
+    <arg name="c" type="double"/>
+    <arg name="s" type="double"/>
+  </method>
+  <method name="pixman_f_transform_init_translate" result="void">
+    <arg name="t" type="struct pixman_f_transform *"/>
+    <arg name="tx" type="double"/>
+    <arg name="ty" type="double"/>
+  </method>
+  <method name="pixman_f_transform_translate" result="pixman_bool_t">
+    <arg name="forward" type="struct pixman_f_transform *"/>
+    <arg name="reverse" type="struct pixman_f_transform *"/>
+    <arg name="tx" type="double"/>
+    <arg name="ty" type="double"/>
+  </method>
+  <method name="pixman_f_transform_bounds" result="pixman_bool_t">
+    <arg name="t" type="struct pixman_f_transform *"/>
+    <arg name="b" type="struct pixman_box16 *"/>
+  </method>
+  <method name="pixman_f_transform_init_identity" result="void">
+    <arg name="t" type="struct pixman_f_transform *"/>
+  </method>
+  <method name="pixman_image_create_radial_gradient" result="pixman_image_t *">
+    <arg name="inner" type="pixman_point_fixed_t *"/>
+    <arg name="outer" type="pixman_point_fixed_t *"/>
+    <arg name="inner_radius" type="pixman_fixed_t"/>
+    <arg name="outer_radius" type="pixman_fixed_t"/>
+    <arg name="stops" type="pixman_gradient_stop_t *"/>
+    <arg name="n_stops" type="int"/>
+  </method>
+  <method name="pixman_region_equal" result="pixman_bool_t">
+    <arg name="reg1" type="region_type_t *"/>
+    <arg name="reg2" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_equal" result="pixman_bool_t">
+    <arg name="reg1" type="region_type_t *"/>
+    <arg name="reg2" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_init" result="void">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_init" result="void">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_init_rect" result="void">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+    <arg name="width" type="unsigned"/>
+    <arg name="height" type="unsigned"/>
+  </method>
+  <method name="pixman_region32_init_rect" result="void">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+    <arg name="width" type="unsigned"/>
+    <arg name="height" type="unsigned"/>
+  </method>
+  <method name="pixman_region_init_with_extents" result="void">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="extents" type="box_type_t *"/>
+  </method>
+  <method name="pixman_region32_init_with_extents" result="void">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="extents" type="box_type_t *"/>
+  </method>
+  <method name="pixman_region_fini" result="void">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_fini" result="void">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_n_rects" result="int">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_n_rects" result="int">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_rectangles" result="box_type_t *">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="n_rects" type="int *"/>
+  </method>
+  <method name="pixman_region32_rectangles" result="box_type_t *">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="n_rects" type="int *"/>
+  </method>
+  <method name="pixman_region_copy" result="pixman_bool_t">
+    <arg name="dst" type="region_type_t *"/>
+    <arg name="src" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_copy" result="pixman_bool_t">
+    <arg name="dst" type="region_type_t *"/>
+    <arg name="src" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_intersect" result="pixman_bool_t">
+    <arg name="new_reg" type="region_type_t *"/>
+    <arg name="reg1" type="region_type_t *"/>
+    <arg name="reg2" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_intersect" result="pixman_bool_t">
+    <arg name="new_reg" type="region_type_t *"/>
+    <arg name="reg1" type="region_type_t *"/>
+    <arg name="reg2" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_intersect_rect" result="pixman_bool_t">
+    <arg name="dest" type="region_type_t *"/>
+    <arg name="source" type="region_type_t *"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+    <arg name="width" type="unsigned"/>
+    <arg name="height" type="unsigned"/>
+  </method>
+  <method name="pixman_region32_intersect_rect" result="pixman_bool_t">
+    <arg name="dest" type="region_type_t *"/>
+    <arg name="source" type="region_type_t *"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+    <arg name="width" type="unsigned"/>
+    <arg name="height" type="unsigned"/>
+  </method>
+  <method name="pixman_region_union_rect" result="pixman_bool_t">
+    <arg name="dest" type="region_type_t *"/>
+    <arg name="source" type="region_type_t *"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+    <arg name="width" type="unsigned"/>
+    <arg name="height" type="unsigned"/>
+  </method>
+  <method name="pixman_region32_union_rect" result="pixman_bool_t">
+    <arg name="dest" type="region_type_t *"/>
+    <arg name="source" type="region_type_t *"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+    <arg name="width" type="unsigned"/>
+    <arg name="height" type="unsigned"/>
+  </method>
+  <method name="pixman_region_union" result="pixman_bool_t">
+    <arg name="new_reg" type="region_type_t *"/>
+    <arg name="reg1" type="region_type_t *"/>
+    <arg name="reg2" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_union" result="pixman_bool_t">
+    <arg name="new_reg" type="region_type_t *"/>
+    <arg name="reg1" type="region_type_t *"/>
+    <arg name="reg2" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_subtract" result="pixman_bool_t">
+    <arg name="reg_d" type="region_type_t *"/>
+    <arg name="reg_m" type="region_type_t *"/>
+    <arg name="reg_s" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_subtract" result="pixman_bool_t">
+    <arg name="reg_d" type="region_type_t *"/>
+    <arg name="reg_m" type="region_type_t *"/>
+    <arg name="reg_s" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_inverse" result="pixman_bool_t">
+    <arg name="new_reg" type="region_type_t *"/>
+    <arg name="reg1" type="region_type_t *"/>
+    <arg name="inv_rect" type="box_type_t *"/>
+  </method>
+  <method name="pixman_region32_inverse" result="pixman_bool_t">
+    <arg name="new_reg" type="region_type_t *"/>
+    <arg name="reg1" type="region_type_t *"/>
+    <arg name="inv_rect" type="box_type_t *"/>
+  </method>
+  <method name="pixman_region_contains_rectangle" result="pixman_region_overlap_t">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="prect" type="box_type_t *"/>
+  </method>
+  <method name="pixman_region32_contains_rectangle" result="pixman_region_overlap_t">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="prect" type="box_type_t *"/>
+  </method>
+  <method name="pixman_region_translate" result="void">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+  </method>
+  <method name="pixman_region32_translate" result="void">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+  </method>
+  <method name="pixman_region_reset" result="void">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="box" type="box_type_t *"/>
+  </method>
+  <method name="pixman_region32_reset" result="void">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="box" type="box_type_t *"/>
+  </method>
+  <method name="pixman_region_clear" result="void">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_clear" result="void">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_contains_point" result="int">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+    <arg name="box" type="box_type_t *"/>
+  </method>
+  <method name="pixman_region32_contains_point" result="int">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+    <arg name="box" type="box_type_t *"/>
+  </method>
+  <method name="pixman_region_not_empty" result="int">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_not_empty" result="int">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_extents" result="box_type_t *">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_extents" result="box_type_t *">
+    <arg name="region" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_selfcheck" result="pixman_bool_t">
+    <arg name="reg" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region32_selfcheck" result="pixman_bool_t">
+    <arg name="reg" type="region_type_t *"/>
+  </method>
+  <method name="pixman_region_init_rects" result="pixman_bool_t">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="boxes" type="box_type_t *"/>
+    <arg name="count" type="int"/>
+  </method>
+  <method name="pixman_region32_init_rects" result="pixman_bool_t">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="boxes" type="box_type_t *"/>
+    <arg name="count" type="int"/>
+  </method>
+  <method name="pixman_region_init_from_image" result="void">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_region32_init_from_image" result="void">
+    <arg name="region" type="region_type_t *"/>
+    <arg name="image" type="pixman_image_t *"/>
+  </method>
+  <method name="pixman_region_set_static_pointers" result="void">
+    <arg name="empty_box" type="pixman_box16_t *"/>
+    <arg name="empty_data" type="pixman_region16_data_t *"/>
+    <arg name="broken_data" type="pixman_region16_data_t *"/>
+  </method>
+  <method name="pixman_image_create_solid_fill" result="pixman_image_t *">
+    <arg name="color" type="pixman_color_t *"/>
+  </method>
+  <method name="pixman_sample_ceil_y" result="pixman_fixed_t">
+    <arg name="y" type="pixman_fixed_t"/>
+    <arg name="n" type="int"/>
+  </method>
+  <method name="pixman_sample_floor_y" result="pixman_fixed_t">
+    <arg name="y" type="pixman_fixed_t"/>
+    <arg name="n" type="int"/>
+  </method>
+  <method name="pixman_edge_step" result="void">
+    <arg name="e" type="pixman_edge_t *"/>
+    <arg name="n" type="int"/>
+  </method>
+  <method name="pixman_edge_init" result="void">
+    <arg name="e" type="pixman_edge_t *"/>
+    <arg name="n" type="int"/>
+    <arg name="y_start" type="pixman_fixed_t"/>
+    <arg name="x_top" type="pixman_fixed_t"/>
+    <arg name="y_top" type="pixman_fixed_t"/>
+    <arg name="x_bot" type="pixman_fixed_t"/>
+    <arg name="y_bot" type="pixman_fixed_t"/>
+  </method>
+  <method name="pixman_line_fixed_edge_init" result="void">
+    <arg name="e" type="pixman_edge_t *"/>
+    <arg name="n" type="int"/>
+    <arg name="y" type="pixman_fixed_t"/>
+    <arg name="line" type="pixman_line_fixed_t *"/>
+    <arg name="x_off" type="int"/>
+    <arg name="y_off" type="int"/>
+  </method>
+  <method name="pixman_add_traps" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="x_off" type="int16_t"/>
+    <arg name="y_off" type="int16_t"/>
+    <arg name="ntrap" type="int"/>
+    <arg name="traps" type="pixman_trap_t *"/>
+  </method>
+  <method name="pixman_add_trapezoids" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="x_off" type="int16_t"/>
+    <arg name="y_off" type="int"/>
+    <arg name="ntraps" type="int"/>
+    <arg name="traps" type="pixman_trapezoid_t *"/>
+  </method>
+  <method name="pixman_rasterize_trapezoid" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="trap" type="pixman_trapezoid_t *"/>
+    <arg name="x_off" type="int"/>
+    <arg name="y_off" type="int"/>
+  </method>
+  <method name="pixman_composite_trapezoids" result="void">
+    <arg name="op" type="pixman_op_t"/>
+    <arg name="src" type="pixman_image_t *"/>
+    <arg name="dst" type="pixman_image_t *"/>
+    <arg name="mask_format" type="pixman_format_code_t"/>
+    <arg name="x_src" type="int"/>
+    <arg name="y_src" type="int"/>
+    <arg name="x_dst" type="int"/>
+    <arg name="y_dst" type="int"/>
+    <arg name="n_traps" type="int"/>
+    <arg name="traps" type="pixman_trapezoid_t *"/>
+  </method>
+  <method name="pixman_composite_triangles" result="void">
+    <arg name="op" type="pixman_op_t"/>
+    <arg name="src" type="pixman_image_t *"/>
+    <arg name="dst" type="pixman_image_t *"/>
+    <arg name="mask_format" type="pixman_format_code_t"/>
+    <arg name="x_src" type="int"/>
+    <arg name="y_src" type="int"/>
+    <arg name="x_dst" type="int"/>
+    <arg name="y_dst" type="int"/>
+    <arg name="n_tris" type="int"/>
+    <arg name="tris" type="pixman_triangle_t *"/>
+  </method>
+  <method name="pixman_add_triangles" result="void">
+    <arg name="image" type="pixman_image_t *"/>
+    <arg name="x_off" type="int32_t"/>
+    <arg name="y_off" type="int32_t"/>
+    <arg name="n_tris" type="int"/>
+    <arg name="tris" type="pixman_triangle_t *"/>
+  </method>
+  <method name="pixman_image_composite32" result="void">
+    <arg name="op" type="pixman_op_t"/>
+    <arg name="src" type="pixman_image_t *"/>
+    <arg name="mask" type="pixman_image_t *"/>
+    <arg name="dest" type="pixman_image_t *"/>
+    <arg name="src_x" type="int32_t"/>
+    <arg name="src_y" type="int32_t"/>
+    <arg name="mask_x" type="int32_t"/>
+    <arg name="mask_y" type="int32_t"/>
+    <arg name="dest_x" type="int32_t"/>
+    <arg name="dest_y" type="int32_t"/>
+    <arg name="width" type="int32_t"/>
+    <arg name="height" type="int32_t"/>
+  </method>
+  <method name="pixman_image_composite" result="void">
+    <arg name="op" type="pixman_op_t"/>
+    <arg name="src" type="pixman_image_t *"/>
+    <arg name="mask" type="pixman_image_t *"/>
+    <arg name="dest" type="pixman_image_t *"/>
+    <arg name="src_x" type="int16_t"/>
+    <arg name="src_y" type="int16_t"/>
+    <arg name="mask_x" type="int16_t"/>
+    <arg name="mask_y" type="int16_t"/>
+    <arg name="dest_x" type="int16_t"/>
+    <arg name="dest_y" type="int16_t"/>
+    <arg name="width" type="uint16_t"/>
+    <arg name="height" type="uint16_t"/>
+  </method>
+  <method name="pixman_blt" result="pixman_bool_t">
+    <arg name="src_bits" type="uint32_t *"/>
+    <arg name="dst_bits" type="uint32_t *"/>
+    <arg name="src_stride" type="int"/>
+    <arg name="dst_stride" type="int"/>
+    <arg name="src_bpp" type="int"/>
+    <arg name="dst_bpp" type="int"/>
+    <arg name="src_x" type="int"/>
+    <arg name="src_y" type="int"/>
+    <arg name="dest_x" type="int"/>
+    <arg name="dest_y" type="int"/>
+    <arg name="width" type="int"/>
+    <arg name="height" type="int"/>
+  </method>
+  <method name="pixman_fill" result="pixman_bool_t">
+    <arg name="bits" type="uint32_t *"/>
+    <arg name="stride" type="int"/>
+    <arg name="bpp" type="int"/>
+    <arg name="x" type="int"/>
+    <arg name="y" type="int"/>
+    <arg name="width" type="int"/>
+    <arg name="height" type="int"/>
+    <arg name="xor" type="uint32_t"/>
+  </method>
+  <method name="pixman_image_fill_rectangles" result="pixman_bool_t">
+    <arg name="op" type="pixman_op_t"/>
+    <arg name="dest" type="pixman_image_t *"/>
+    <arg name="color" type="pixman_color_t *"/>
+    <arg name="n_rects" type="int"/>
+    <arg name="rects" type="pixman_rectangle16_t *"/>
+  </method>
+  <method name="pixman_image_fill_boxes" result="pixman_bool_t">
+    <arg name="op" type="pixman_op_t"/>
+    <arg name="dest" type="pixman_image_t *"/>
+    <arg name="color" type="pixman_color_t *"/>
+    <arg name="n_boxes" type="int"/>
+    <arg name="boxes" type="pixman_box32_t *"/>
+  </method>
+  <method name="pixman_version" result="int">
+  </method>
+  <method name="pixman_version_string" result="char *">
+  </method>
+  <method name="pixman_format_supported_source" result="pixman_bool_t">
+    <arg name="format" type="pixman_format_code_t"/>
+  </method>
+  <method name="pixman_format_supported_destination" result="pixman_bool_t">
+    <arg name="format" type="pixman_format_code_t"/>
+  </method>
+  <method name="pixman_compute_composite_region" result="pixman_bool_t">
+    <arg name="region" type="pixman_region16_t *"/>
+    <arg name="src_image" type="pixman_image_t *"/>
+    <arg name="mask_image" type="pixman_image_t *"/>
+    <arg name="dest_image" type="pixman_image_t *"/>
+    <arg name="src_x" type="int16_t"/>
+    <arg name="src_y" type="int16_t"/>
+    <arg name="mask_x" type="int16_t"/>
+    <arg name="mask_y" type="int16_t"/>
+    <arg name="dest_x" type="int16_t"/>
+    <arg name="dest_y" type="int16_t"/>
+    <arg name="width" type="uint16_t"/>
+    <arg name="height" type="uint16_t"/>
+  </method>
+ </interface>
+</library>

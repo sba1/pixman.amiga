@@ -46,10 +46,7 @@ void _impl_pixman_add_trapezoids(struct PixmanIFace *Self,
        int ntraps,
        pixman_trapezoid_t * traps)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_add_trapezoids not implemented\n");  
-
+	pixman_add_trapezoids(image, x_off, y_off, ntraps, traps);
 }
 
 /****** pixman/main/pixman_add_traps ******************************************
@@ -92,10 +89,7 @@ void _impl_pixman_add_traps(struct PixmanIFace *Self,
        int ntrap,
        pixman_trap_t * traps)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_add_traps not implemented\n");  
-
+	pixman_add_traps(image, x_off, y_off, ntrap, traps);
 }
 
 /****** pixman/main/pixman_add_triangles ******************************************
@@ -138,10 +132,7 @@ void _impl_pixman_add_triangles(struct PixmanIFace *Self,
        int n_tris,
        pixman_triangle_t * tris)
 {
-    /* Write me. Really, I dare you! */
-    ((struct ExecIFace *)((*(struct ExecBase **)4)->MainInterface))->DebugPrintF(
-		"Function pixman::pixman_add_triangles not implemented\n");  
-
+	pixman_add_triangles(image, x_off, y_off, n_tris, tris);
 }
 
 /****** pixman/main/pixman_blt ******************************************

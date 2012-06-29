@@ -95,6 +95,10 @@ STATIC APTR libClose(struct LibraryManagerInterface *Self)
     return 0;
 }
 
+#ifdef __NEWLIB__
+struct Library *NewlibBase;
+struct Interface *INewlib;
+#endif
 
 /* Expunge the library */
 STATIC APTR libExpunge(struct LibraryManagerInterface *Self)
@@ -106,8 +110,21 @@ STATIC APTR libExpunge(struct LibraryManagerInterface *Self)
     struct PixmanLibrary *libBase = (struct PixmanLibrary *)Self->Data.LibBase;
     if (libBase->libNode.lib_OpenCnt == 0)
     {
-	     result = (APTR)libBase->segList;
+    	result = (APTR)libBase->segList;
         /* Undo what the init code did */
+
+#ifdef __NEWLIB__
+        if (INewlib)
+        {
+            IExec->DropInterface(INewlib);
+            INewlib = NULL;
+        }
+        if (NewlibBase)
+        {
+            IExec->CloseLibrary(NewlibBase);
+            NewlibBase = NULL;
+        }
+#endif
 
         IExec->Remove((struct Node *)libBase);
         IExec->DeleteLibrary((struct Library *)libBase);
@@ -125,6 +142,14 @@ STATIC struct Library *libInit(struct Library *LibraryBase, APTR seglist, struct
 {
     struct PixmanLibrary *libBase = (struct PixmanLibrary *)LibraryBase;
     struct ExecIFace *IExec UNUSED = (struct ExecIFace *)exec;
+
+#ifdef __NEWLIB__
+    if ((NewlibBase = IExec->OpenLibrary("newlib.library", 4)))
+        INewlib = IExec->GetInterface(NewlibBase, "main", 1, NULL);
+    if (!INewlib)
+        return NULL;
+#endif
+
 
     libBase->libNode.lib_Node.ln_Type = NT_LIBRARY;
     libBase->libNode.lib_Node.ln_Pri  = 0;

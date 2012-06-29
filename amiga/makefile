@@ -19,13 +19,13 @@ DEBUG    = # -gstabs -DDEBUG
 CFLAGS   = -I. -Iinclude -I../pixman/ -Wall $(OPTIMIZE) $(DEBUG)
 
 # Flags passed to gcc during linking
-LINK = 
+LINK = -L../pixman
 
 # Name of the "thing" to build
 TARGET = pixman.library
 
 # Additional linker libraries
-LIBS = 
+LIBS = -lpixman
 
 # Version of the library to build
 VERSION = 53

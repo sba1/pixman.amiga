@@ -390,7 +390,7 @@
   </method>
   <method name="pixman_version" result="int">
   </method>
-  <method name="pixman_version_string" result="char *">
+  <method name="pixman_version_string" result="const char *">
   </method>
   <method name="pixman_format_supported_destination" result="pixman_bool_t">
     <arg name="format" type="pixman_format_code_t"/>

@@ -36,13 +36,17 @@ for ext in t.ext:
 	if isinstance(ext, Decl) and isinstance(ext.type,FuncDecl):
 		ty = ext.type
 		params = ty.args.params;
+
 		if isinstance(ty.type,TypeDecl):
 			res = ty.type.type.names[0]
 		else:
-			res = ty.type.type.type.names[0]
+			if len(ty.type.type.quals) > 0:
+				res = ' '.join(ty.type.type.quals) + ' ' + ty.type.type.type.names[0]
+			else:
+				res = ty.type.type.type.names[0]
 		if isinstance(ty.type,PtrDecl):
 			res = res + " *";
-		print '  <method name="' + ext.name + '" result="' + res+ '">'
+		print '  <method name="' + ext.name + '" result="' + res + '">'
 
 		for p in params:
 			quals = ' '.join(p.quals)

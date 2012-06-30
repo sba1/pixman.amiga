@@ -45,6 +45,8 @@ for ext in t.ext:
 		print '  <method name="' + ext.name + '" result="' + res+ '">'
 
 		for p in params:
+			quals = ' '.join(p.quals)
+			
 			if p.name != None:
 				ty = ""
 				if isinstance(p.type,TypeDecl):
@@ -56,7 +58,7 @@ for ext in t.ext:
 						ty = p.type.type.type.names[0];
 				if isinstance(p.type,PtrDecl):
 					ty = ty + " *"
-				print '    <arg name="' + p.name + '" type="' + ty  + '"/>'
+				print '    <arg name="' + p.name + '" type="' + quals + ' ' + ty  + '"/>'
 
 
 #		t.show()

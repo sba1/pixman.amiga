@@ -10,8 +10,12 @@ CC = ppc-amigaos-gcc
 PERL = perl
 
 # targets
-all:  pixman.library
+all:  libpixman.a
 
 # pixman linking
-pixman.library: pixman-combine32.h pixman-combine64.h $(OBJECTS)
+libpixman.a: pixman-combine32.h pixman-combine64.h $(OBJECTS)
 	ppc-amigaos-ar rcs libpixman.a $(OBJECTS)
+
+.PHONY: clean
+clean:
+	rm -Rf $(OBJECTS) libpixman.a

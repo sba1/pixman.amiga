@@ -15,14 +15,14 @@ RANLIB = $(CROSS_COMPILE)ranlib
 RM     = rm
 
 # Change these as required
-OPTIMIZE = -O2
-DEBUG    = -gstabs -DDEBUG
+OPTIMIZE = -O0
+DEBUG    = #-gstabs -DDEBUG
 CFLAGS   = -I. -Iinclude -I../pixman/ -Wall \
      -DPIXMAN_NO_TLS -DPACKAGE=pixman.library -DPACKAGE_VERSION="" -DPACKAGE_BUGREPORT=""\
      $(OPTIMIZE) $(DEBUG)
 
 # Flags passed to gcc during linking
-LINK = -gstabs -L../pixman
+LINK = -G 0 -gstabs -L../pixman
 
 # Name of the "thing" to build
 TARGET = pixman.library

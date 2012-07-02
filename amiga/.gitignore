@@ -1,3 +1,7 @@
 pixman.library
 pixman.library_rev.i
 pixman.library_rev.s
+pixman.library.map
+pixman.library.debug
+pixman.library.debug.map
+

@@ -29,7 +29,7 @@ LINK = -G 0 -gstabs -L../pixman
 TARGET = pixman.library
 
 # Additional linker libraries
-LIBS = -lpixman
+LIBS = -lpixman-impl
 
 # Version of the library to build
 VERSION = 53

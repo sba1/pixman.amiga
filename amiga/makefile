@@ -40,12 +40,16 @@ VERSION = 53
 SRCS = init.c stubs.c
 
 OBJS = $(SRCS:.c=.o)
+
+
+all: $(TARGET) libpixman.a
+
 # Rules for building
 $(TARGET): $(OBJS)
 	$(CC) $(LINK) -nostartfiles -o $@.debug $(OBJS) $(LIBS) -Wl,-L.,--cref,-M,-Map=$@.debug.map
 	$(STRIP) -R.comment $@.debug -o $@
 
-libpixman_auto.a: autoinit_pixman_base.o autoinit_pixman_main.o
+libpixman.a: autoinit_pixman_base.o autoinit_pixman_main.o
 	$(AR) rcs $@ autoinit_pixman_base.o autoinit_pixman_main.o
 
 .PHONY: clean

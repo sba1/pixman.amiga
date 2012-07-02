@@ -30,7 +30,7 @@ print '''<?xml version="1.0" encoding="iso-8859-1"?>
 
 '''
 
-print ' <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" prefix="_impl_" asmprefix="IPixman">'
+print ' <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" global="IPrefix" prefix="_impl_" asmprefix="IPixman">'
 
 for ext in t.ext:
 	if isinstance(ext, Decl) and isinstance(ext.type,FuncDecl):

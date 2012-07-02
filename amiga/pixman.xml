@@ -7,7 +7,7 @@
   </include>
 
 
- <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" prefix="_impl_" asmprefix="IPixman">
+ <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" global="IPixman" prefix="_impl_" asmprefix="IPixman">
   <method name="pixman_transform_init_identity" result="void">
     <arg name="matrix" type=" struct pixman_transform *"/>
   </method>

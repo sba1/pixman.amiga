@@ -2,10 +2,11 @@ default: all
 
 top_srcdir = ..
 include $(top_srcdir)/pixman/Makefile.sources
+include $(top_srcdir)/Makefile.amiga.common
 
 OBJECTS = $(patsubst %.c, %.o, $(libpixman_sources))
 
-CFLAGS = -O2 -mhard-float -I$(top_srcdir)/amiga -DPIXMAN_NO_TLS -DPACKAGE=pixman.library -DPACKAGE_VERSION="" -DPACKAGE_BUGREPORT=""
+CFLAGS = -O2 -mhard-float -I$(top_srcdir)/amiga $(AMIGA_CFLAGS)
 CC = ppc-amigaos-gcc
 PERL = perl
 

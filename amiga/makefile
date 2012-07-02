@@ -4,6 +4,8 @@
 # $Id: genskeleton.cpp,v 1.13 2010-03-17 14:37:07 cmincea Exp $
 # 
 
+include ../Makefile.amiga.common
+
 # Uncomment the next line if you are cross compiling
 CROSS_COMPILE = ppc-amigaos-
 CC     = $(CROSS_COMPILE)gcc
@@ -15,11 +17,9 @@ RANLIB = $(CROSS_COMPILE)ranlib
 RM     = rm
 
 # Change these as required
-OPTIMIZE = -O0
+OPTIMIZE = -O2
 DEBUG    = #-gstabs -DDEBUG
-CFLAGS   = -I. -Iinclude -I../pixman/ -Wall \
-     -DPIXMAN_NO_TLS -DPACKAGE=pixman.library -DPACKAGE_VERSION="" -DPACKAGE_BUGREPORT=""\
-     $(OPTIMIZE) $(DEBUG)
+CFLAGS   = -I. -Iinclude -I../pixman/ -Wall $(AMIGA_CFLAGS) $(OPTIMIZE) $(DEBUG)
 
 # Flags passed to gcc during linking
 LINK = -G 0 -gstabs -L../pixman

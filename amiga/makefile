@@ -12,6 +12,7 @@ CC     = $(CROSS_COMPILE)gcc
 STRIP  = $(CROSS_COMPILE)strip
 CXX    = $(CROSS_COMPILE)c++ 
 AS     = $(CROSS_COMPILE)as 
+AR     = $(CROSS_COMPILE)ar
 LD     = $(CROSS_COMPILE)ld 
 RANLIB = $(CROSS_COMPILE)ranlib 
 RM     = rm
@@ -43,6 +44,9 @@ OBJS = $(SRCS:.c=.o)
 $(TARGET): $(OBJS)
 	$(CC) $(LINK) -nostartfiles -o $@.debug $(OBJS) $(LIBS) -Wl,-L.,--cref,-M,-Map=$@.debug.map
 	$(STRIP) -R.comment $@.debug -o $@
+
+libpixman_auto.a: autoinit_pixman_base.o autoinit_pixman_main.o
+	$(AR) rcs $@ autoinit_pixman_base.o autoinit_pixman_main.o
 
 .PHONY: clean
 clean:

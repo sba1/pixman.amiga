@@ -9,14 +9,14 @@ OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
 
 CC = ppc-amigaos-gcc
 CFLAGS = -I../pixman -I../amiga $(AMIGA_CFLAGS)
+LDLIBS = -L ../amiga -lpixman
 
 all: $(TESTPROGRAMS) $(BENCHMARKS)
 
 $(foreach p,$(TESTPROGRAMS) $(BENCHMARKS), $(eval $(p): $(p).o libutils.a))
 
-
 libutils.a: $(libutils_OBJECTS)
 	ppc-amigaos-ar rcs libutils.a $(libutils_OBJECTS)
 
 clean:
-	rm -Rf $(BENCHMARKS) $(TESTPROGRAMS) $(OBJECTS) libutils.a
+	rm -Rf $(BENCHMARKS) $(TESTPROGRAMS) $(OBJECTS) $(libutils_OBJECTS) libutils.a

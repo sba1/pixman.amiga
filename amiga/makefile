@@ -38,9 +38,9 @@ VERSION = 53
 # Nothing should need changing below this line
 
 SRCS = init.c stubs.c
-
 OBJS = $(SRCS:.c=.o)
 
+LINKOBJS = autoinit_pixman_base.o autoinit_pixman_main.o libstubs.o
 
 all: $(TARGET) libpixman.a
 
@@ -49,12 +49,12 @@ $(TARGET): $(OBJS)
 	$(CC) $(LINK) -nostartfiles -o $@.debug $(OBJS) $(LIBS) -Wl,-L.,--cref,-M,-Map=$@.debug.map
 	$(STRIP) -R.comment $@.debug -o $@
 
-libpixman.a: autoinit_pixman_base.o autoinit_pixman_main.o libstubs.o
-	$(AR) rcs $@ autoinit_pixman_base.o autoinit_pixman_main.o libstubs.o
+libpixman.a: $(LINKOBJS)
+	$(AR) rcs $@ $(LINKOBJS)
 
 .PHONY: clean
 clean:
-	$(RM) $(TARGET) $(OBJS)
+	$(RM) $(TARGET) $(OBJS) $(LINKOBJS) libpixman.a
 
 .PHONY: revision
 revision:

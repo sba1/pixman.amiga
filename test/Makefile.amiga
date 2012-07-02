@@ -1,0 +1,22 @@
+top_srcdir = ..
+include $(top_srcdir)/test/Makefile.sources
+include $(top_srcdir)/Makefile.amiga.common
+
+libutils_OBJECTS = $(patsubst %.c, %.o, $(libutils_sources))
+
+SOURCES = $(patsubst %,   %.c, $(TESTPROGRAMS) $(BENCHMARKS))
+OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
+
+CC = ppc-amigaos-gcc
+CFLAGS = -I../pixman -I../amiga $(AMIGA_CFLAGS)
+
+all: $(TESTPROGRAMS) $(BENCHMARKS)
+
+$(foreach p,$(TESTPROGRAMS) $(BENCHMARKS), $(eval $(p): $(p).o libutils.a))
+
+
+libutils.a: $(libutils_OBJECTS)
+	ppc-amigaos-ar rcs libutils.a $(libutils_OBJECTS)
+
+clean:
+	rm -Rf $(BENCHMARKS) $(TESTPROGRAMS) $(OBJECTS) libutils.a

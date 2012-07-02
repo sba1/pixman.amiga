@@ -49,8 +49,8 @@ $(TARGET): $(OBJS)
 	$(CC) $(LINK) -nostartfiles -o $@.debug $(OBJS) $(LIBS) -Wl,-L.,--cref,-M,-Map=$@.debug.map
 	$(STRIP) -R.comment $@.debug -o $@
 
-libpixman.a: autoinit_pixman_base.o autoinit_pixman_main.o
-	$(AR) rcs $@ autoinit_pixman_base.o autoinit_pixman_main.o
+libpixman.a: autoinit_pixman_base.o autoinit_pixman_main.o libstubs.o
+	$(AR) rcs $@ autoinit_pixman_base.o autoinit_pixman_main.o libstubs.o
 
 .PHONY: clean
 clean:

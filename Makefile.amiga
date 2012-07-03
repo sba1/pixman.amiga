@@ -1,2 +1,9 @@
 all:
 	make -C pixman -f Makefile.amiga
+	make -C amiga
+	make -C test -f Makefile.amiga
+
+clean:
+	make -C pixman -f Makefile.amiga clean
+	make -C amiga clean
+	make -C test -f Makefile.amiga clean

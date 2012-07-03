@@ -24,13 +24,17 @@ print '''<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE library SYSTEM "library.dtd">
 <library name="pixman" basename="PixmanBase" basetype="PixmanLibrary" openname="pixman.library">
 
-  <include>
-     pixman.h
-  </include>
+ <include>
+  pixman.h
+ </include>
 
+ <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" global="IPrefix" prefix="_impl_" asmprefix="IPixman">
+
+  <method name="Obtain" result="uint32"/>
+  <method name="Release" result="uint32"/>
+  <method name="Expunge" result="void" status="unimplemented"/>
+  <method name="Clone" result="struct Interface *" status="unimplemented"/>
 '''
-
-print ' <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" global="IPrefix" prefix="_impl_" asmprefix="IPixman">'
 
 for ext in t.ext:
 	if isinstance(ext, Decl) and isinstance(ext.type,FuncDecl):

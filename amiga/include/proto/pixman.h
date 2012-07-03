@@ -26,6 +26,7 @@
   #define CLIB_PIXMAN_PROTOS_H 1
  #endif /* CLIB_PIXMAN_PROTOS_H */
  #ifndef __NOGLOBALIFACE__
+  extern struct PixmanIFace *IPrefix;
  #endif /* __NOGLOBALIFACE__ */
 #else /* __amigaos4__ */
  #ifndef CLIB_PIXMAN_PROTOS_H

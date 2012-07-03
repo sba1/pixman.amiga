@@ -15,6 +15,8 @@
 #include <pixman.h>
 #endif
 
+extern uint32               VARARGS68K _impl_Obtain(struct PixmanIFace *);
+extern uint32               VARARGS68K _impl_Release(struct PixmanIFace *);
 extern void                 VARARGS68K _impl_pixman_transform_init_identity(struct PixmanIFace *,  struct pixman_transform * matrix);
 extern pixman_bool_t        VARARGS68K _impl_pixman_transform_point_3d(struct PixmanIFace *, const struct pixman_transform * transform,  struct pixman_vector * vector);
 extern pixman_bool_t        VARARGS68K _impl_pixman_transform_point(struct PixmanIFace *, const struct pixman_transform * transform,  struct pixman_vector * vector);

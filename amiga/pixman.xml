@@ -2,12 +2,17 @@
 <!DOCTYPE library SYSTEM "library.dtd">
 <library name="pixman" basename="PixmanBase" basetype="PixmanLibrary" openname="pixman.library">
 
-  <include>
-     pixman.h
-  </include>
+ <include>
+  pixman.h
+ </include>
 
+ <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" global="IPrefix" prefix="_impl_" asmprefix="IPixman">
 
- <interface name="main" version="1.0" flags="protected" struct="PixmanIFace" global="IPixman" prefix="_impl_" asmprefix="IPixman">
+  <method name="Obtain" result="uint32"/>
+  <method name="Release" result="uint32"/>
+  <method name="Expunge" result="void" status="unimplemented"/>
+  <method name="Clone" result="struct Interface *" status="unimplemented"/>
+
   <method name="pixman_transform_init_identity" result="void">
     <arg name="matrix" type=" struct pixman_transform *"/>
   </method>

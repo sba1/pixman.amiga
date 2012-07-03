@@ -18,12 +18,12 @@ RANLIB = $(CROSS_COMPILE)ranlib
 RM     = rm
 
 # Change these as required
-OPTIMIZE = -O2
-DEBUG    = #-gstabs -DDEBUG
+OPTIMIZE = -O0
+DEBUG    = -ggdb # -DDEBUG
 CFLAGS   = -I. -Iinclude -I../pixman/ -Wall $(AMIGA_CFLAGS) $(OPTIMIZE) $(DEBUG)
 
 # Flags passed to gcc during linking
-LINK = -G 0 -gstabs -L../pixman
+LINK = -G 0 -gstabs -L../pixman -Wl,-r
 
 # Name of the "thing" to build
 TARGET = pixman.library
@@ -48,6 +48,10 @@ all: $(TARGET) libpixman.a
 $(TARGET): $(OBJS)
 	$(CC) $(LINK) -nostartfiles -o $@.debug $(OBJS) $(LIBS) -Wl,-L.,--cref,-M,-Map=$@.debug.map
 	$(STRIP) -R.comment $@.debug -o $@
+#	mount /home/sba/qemu/qemu-build/boot
+#	cp $(TARGET) /home/sba/qemu/qemu-build/boot
+#	sleep 1
+#	umount /home/sba/qemu/qemu-build/boot
 
 libpixman.a: $(LINKOBJS)
 	$(AR) rcs $@ $(LINKOBJS)

@@ -31,6 +31,10 @@ struct PixmanIFace
 {
 	struct InterfaceData Data;
 
+	uint32 APICALL (*Obtain)(struct PixmanIFace *Self);
+	uint32 APICALL (*Release)(struct PixmanIFace *Self);
+	void APICALL (*Expunge)(struct PixmanIFace *Self);
+	struct Interface * APICALL (*Clone)(struct PixmanIFace *Self);
 	void APICALL (*pixman_transform_init_identity)(struct PixmanIFace *Self,  struct pixman_transform * matrix);
 	pixman_bool_t APICALL (*pixman_transform_point_3d)(struct PixmanIFace *Self, const struct pixman_transform * transform,  struct pixman_vector * vector);
 	pixman_bool_t APICALL (*pixman_transform_point)(struct PixmanIFace *Self, const struct pixman_transform * transform,  struct pixman_vector * vector);

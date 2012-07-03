@@ -5,6 +5,10 @@
 
 STATIC CONST APTR main_v1_vectors[] =
 {
+    _impl_Obtain,
+    _impl_Release,
+    NULL,
+    NULL,
     _impl_pixman_transform_init_identity,
     _impl_pixman_transform_point_3d,
     _impl_pixman_transform_point,

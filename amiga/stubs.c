@@ -13,6 +13,98 @@
 #include <proto/pixman.h>
 #include <stdarg.h>
 
+#include <exec/exec.h>
+#include <proto/exec.h>
+#include <dos/dos.h>
+#include <pixman.h>
+#include <proto/pixman.h>
+#include <stdarg.h>
+
+/****** pixman/main/Obtain ******************************************
+*
+*   NAME
+*      Obtain -- Description
+*
+*   SYNOPSIS
+*      uint32 Obtain(void);
+*
+*   FUNCTION
+*
+*   INPUTS
+*
+*   RESULT
+*       The result ...
+*
+*   EXAMPLE
+*
+*   NOTES
+*
+*   BUGS
+*
+*   SEE ALSO
+*
+*****************************************************************************
+*
+*/
+
+uint32 _impl_Obtain(struct PixmanIFace *Self)
+{
+	uint32 res;
+	__asm__ __volatile__(
+	"1:	lwarx	%0,0,%1\n"
+	"addic	%0,%0,1\n"
+	"stwcx.	%0,0,%1\n"
+	"bne-	1b"
+	: "=&r" (res)
+	: "r" (&Self->Data.RefCount)
+	: "cc", "memory");
+
+	return res;
+}
+
+/****** pixman/main/Release ******************************************
+*
+*   NAME
+*      Release -- Description
+*
+*   SYNOPSIS
+*      uint32 Release(void);
+*
+*   FUNCTION
+*
+*   INPUTS
+*
+*   RESULT
+*       The result ...
+*
+*   EXAMPLE
+*
+*   NOTES
+*
+*   BUGS
+*
+*   SEE ALSO
+*
+*****************************************************************************
+*
+*/
+
+uint32 _impl_Release(struct PixmanIFace *Self)
+{
+	uint32 res;
+	__asm__ __volatile__(
+	"1:	lwarx	%0,0,%1\n"
+	"addic	%0,%0,-1\n"
+	"stwcx.	%0,0,%1\n"
+	"bne-	1b"
+	: "=&r" (res)
+	: "r" (&Self->Data.RefCount)
+	: "cc", "memory");
+
+	return res;
+}
+
+
 /****** pixman/main/pixman_add_trapezoids ******************************************
 *
 *   NAME

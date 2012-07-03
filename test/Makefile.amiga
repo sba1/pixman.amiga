@@ -8,8 +8,9 @@ SOURCES = $(patsubst %,   %.c, $(TESTPROGRAMS) $(BENCHMARKS))
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
 
 CC = ppc-amigaos-gcc
-CFLAGS = -I../pixman -I../amiga $(AMIGA_CFLAGS)
-LDLIBS = -L ../amiga -lpixman
+DEBUG = -ggdb
+CFLAGS = -O2 $(DEBUG) -I../pixman -I../amiga $(AMIGA_CFLAGS)
+LDLIBS = $(DEBUG) -L ../amiga -lpixman
 
 all: $(TESTPROGRAMS) $(BENCHMARKS)
 

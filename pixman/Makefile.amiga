@@ -6,7 +6,7 @@ include $(top_srcdir)/Makefile.amiga.common
 
 OBJECTS = $(patsubst %.c, %.o, $(libpixman_sources))
 
-CFLAGS = -O2 -mhard-float -I$(top_srcdir)/amiga $(AMIGA_CFLAGS)
+CFLAGS = -ggdb -O2 -mhard-float -I$(top_srcdir)/amiga $(AMIGA_CFLAGS)
 CC = ppc-amigaos-gcc
 PERL = perl
 

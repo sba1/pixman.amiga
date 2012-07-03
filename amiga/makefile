@@ -18,7 +18,7 @@ RANLIB = $(CROSS_COMPILE)ranlib
 RM     = rm
 
 # Change these as required
-OPTIMIZE = -O0
+OPTIMIZE = -O2
 DEBUG    = -ggdb # -DDEBUG
 CFLAGS   = -I. -Iinclude -I../pixman/ -Wall $(AMIGA_CFLAGS) $(OPTIMIZE) $(DEBUG)
 

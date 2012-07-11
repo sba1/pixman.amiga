@@ -23,16 +23,22 @@
  * SOFTWARE.
  */
 
+#include <stdarg.h>
+
 #include <exec/exec.h>
-#include <proto/exec.h>
 #include <dos/dos.h>
 #include <pixman.h>
+
+#include <proto/exec.h>
 #include <proto/pixman.h>
-#include <stdarg.h>
 
 /* Version Tag */
 #include "pixman.library_rev.h"
 STATIC CONST UBYTE USED verstag[] = VERSTAG;
+
+typedef struct pixman_implementation_t pixman_implementation_t;
+extern pixman_implementation_t *global_implementation;
+pixman_implementation_t *_pixman_choose_implementation (void);
 
 struct PixmanLibrary
 {
@@ -160,6 +166,8 @@ STATIC struct Library *libInit(struct Library *LibraryBase, APTR seglist, struct
     libBase->libNode.lib_IdString     = VSTRING;
 
     libBase->segList = (BPTR)seglist;
+
+    global_implementation = _pixman_choose_implementation();
 
     /* Add additional init code here if you need it. For example, to open additional
        Libraries:

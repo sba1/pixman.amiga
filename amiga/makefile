@@ -6,7 +6,8 @@
 
 # Uncomment the next line if you are cross compiling
 CROSS_COMPILE = ppc-amigaos-
-CC     = $(CROSS_COMPILE)gcc 
+CC     = $(CROSS_COMPILE)gcc
+STRIP  = $(CROSS_COMPILE)strip
 CXX    = $(CROSS_COMPILE)c++ 
 AS     = $(CROSS_COMPILE)as 
 LD     = $(CROSS_COMPILE)ld 
@@ -15,11 +16,13 @@ RM     = rm
 
 # Change these as required
 OPTIMIZE = -O2
-DEBUG    = # -gstabs -DDEBUG
-CFLAGS   = -I. -Iinclude -I../pixman/ -Wall $(OPTIMIZE) $(DEBUG)
+DEBUG    = -gstabs -DDEBUG
+CFLAGS   = -I. -Iinclude -I../pixman/ -Wall \
+     -DPIXMAN_NO_TLS -DPACKAGE=pixman.library -DPACKAGE_VERSION="" -DPACKAGE_BUGREPORT=""\
+     $(OPTIMIZE) $(DEBUG)
 
 # Flags passed to gcc during linking
-LINK = -L../pixman
+LINK = -gstabs -L../pixman
 
 # Name of the "thing" to build
 TARGET = pixman.library
@@ -38,7 +41,8 @@ SRCS = init.c stubs.c
 OBJS = $(SRCS:.c=.o)
 # Rules for building
 $(TARGET): $(OBJS)
-	$(CC) $(LINK) -nostartfiles -o $(TARGET) $(OBJS) $(LIBS)
+	$(CC) $(LINK) -nostartfiles -o $@.debug $(OBJS) $(LIBS) -Wl,-L.,--cref,-M,-Map=$@.debug.map
+	$(STRIP) -R.comment $@.debug -o $@
 
 .PHONY: clean
 clean:

@@ -106,6 +106,8 @@ struct Library *NewlibBase;
 struct Interface *INewlib;
 #endif
 
+struct ExecIFace *IExec;
+
 /* Expunge the library */
 STATIC APTR libExpunge(struct LibraryManagerInterface *Self)
 {
@@ -146,8 +148,10 @@ STATIC APTR libExpunge(struct LibraryManagerInterface *Self)
 /* The ROMTAG Init Function */
 STATIC struct Library *libInit(struct Library *LibraryBase, APTR seglist, struct Interface *exec)
 {
+    void init_fast_path_cache_semaphore(void);
+
     struct PixmanLibrary *libBase = (struct PixmanLibrary *)LibraryBase;
-    struct ExecIFace *IExec UNUSED = (struct ExecIFace *)exec;
+    IExec = (struct ExecIFace *)exec;
 
 #ifdef __NEWLIB__
     if ((NewlibBase = IExec->OpenLibrary("newlib.library", 4)))
@@ -167,6 +171,7 @@ STATIC struct Library *libInit(struct Library *LibraryBase, APTR seglist, struct
 
     libBase->segList = (BPTR)seglist;
 
+    init_fast_path_cache_semaphore();
     global_implementation = _pixman_choose_implementation();
 
     /* Add additional init code here if you need it. For example, to open additional

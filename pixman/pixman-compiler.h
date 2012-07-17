@@ -94,6 +94,14 @@
     ((type *)(((uint8_t *)data) - offsetof (type, member)))
 
 /* TLS */
+#if defined(PIXMAN_CUSTOM_TLS)
+
+#include "pixman-tls.h"
+
+#else
+
+#   define PIXMAN_UNGET_THREAD_LOCAL(name) {}
+
 #if defined(PIXMAN_NO_TLS)
 
 #   define PIXMAN_DEFINE_THREAD_LOCAL(type, name)			\
@@ -219,4 +227,5 @@
 
 #    error "Unknown thread local support for this system. Pixman will not work with multiple threads. Define PIXMAN_NO_TLS to acknowledge and accept this limitation and compile pixman without thread-safety support."
 
+#endif
 #endif

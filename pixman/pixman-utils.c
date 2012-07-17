@@ -120,6 +120,7 @@ _pixman_lookup_composite_function (pixman_implementation_t     *toplevel,
 	    ++info;
 	}
     }
+    PIXMAN_UNGET_THREAD_LOCAL(fast_path_cache);
     return FALSE;
 
 update_cache:
@@ -138,6 +139,7 @@ update_cache:
 	cache->cache[0].fast_path.dest_flags = dest_flags;
 	cache->cache[0].fast_path.func = *out_func;
     }
+    PIXMAN_UNGET_THREAD_LOCAL(fast_path_cache);
 
     return TRUE;
 }
